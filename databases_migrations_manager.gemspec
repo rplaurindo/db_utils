@@ -4,8 +4,8 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'databases_migrations_manager/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "databases_migrations_manager"
-  spec.version       = DatabasesMigrationsManager::VERSION
+  spec.name             = "databases_migrations_manager"
+  spec.version          = DatabasesMigrationsManager::VERSION
   spec.authors          = ["Home Labs"]
   spec.email            = ["home-labs@outlook.com"]
   spec.homepage         = "https://rubygems.org/gems/databases_migrations_manager"
@@ -13,15 +13,7 @@ Gem::Specification.new do |spec|
   spec.description      = %q{Description of DatabasesMigrationsManager}
   spec.license          = "MIT"
 
-  # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
-  # delete this section to allow pushing this gem to any host.
-  if spec.respond_to?(:metadata)
-    spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com'"
-  else
-    raise "RubyGems 2.0 or newer is required to protect against public gem pushes."
-  end
-
-  spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
+  spec.files = Dir["{lib}/**/*", "MIT-LICENSE", "Rakefile"]
 
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
