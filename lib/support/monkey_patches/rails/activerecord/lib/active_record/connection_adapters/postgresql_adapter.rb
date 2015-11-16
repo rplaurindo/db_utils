@@ -15,7 +15,6 @@ module ActiveRecord
 
   end
 
-
   class Base
 
     class << self
