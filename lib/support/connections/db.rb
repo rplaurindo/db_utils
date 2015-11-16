@@ -1,4 +1,3 @@
-# Para não precisar disso, mudar a forma como o ActiveRecord se conecta, devendo reconhecer se a classe está encapsulada a um módulo e tentar pegar um namespace no database/config
 module DBUtils
   module Connections
 
