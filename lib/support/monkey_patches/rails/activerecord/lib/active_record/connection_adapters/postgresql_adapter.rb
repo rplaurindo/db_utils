@@ -3,7 +3,7 @@ module ActiveRecord
 
     class PostgreSQLAdapter < AbstractAdapter
 
-      def truncate! table_name, params = {}, name = nil
+      def truncate table_name, params = {}, name = nil
         query = "TRUNCATE TABLE #{quote_table_name(table_name)}"
         query = "#{query} RESTART IDENTITY" if params[:restart_identity]
         query = "#{query} CASCADE" if params[:cascade]
