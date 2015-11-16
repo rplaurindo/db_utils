@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'db_utils/version'
 
 Gem::Specification.new do |spec|
-  spec.name             = "db_utils"
+  spec.name             = "db_utils-rails"
   spec.version          = DBUtils::VERSION
   spec.authors          = ["Home Labs"]
   spec.email            = ["home-labs@outlook.com"]
@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "rails", "~> 4.2"
   spec.add_dependency 'rdoc', '~> 4.2'
-  # spec.add_dependency 'byebug', '~> 0.10'
+  spec.add_dependency 'byebug', '~> 8.2'
   spec.add_development_dependency "bundler", "~> 1.10"
   spec.add_development_dependency "rake", "~> 10.0"
 

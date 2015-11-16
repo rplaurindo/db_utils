@@ -1,3 +1,0 @@
-module DBUtils
-  # Your code goes here...
-end
