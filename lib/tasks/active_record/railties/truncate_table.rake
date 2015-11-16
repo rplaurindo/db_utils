@@ -1,13 +1,15 @@
 require "yaml"
 
-namespace :sentinel do
+namespace :db do
   namespace :truncate do
 
     desc "Truncate Table"
 
-    task :table, [:table_name, :restart_keys, :cascade, :namespace] => [:environment] do |t, params|
+    task :table, [:table_name, :restart_keys, :cascade] => [:environment] do |t, params|
 
       active_record = ActiveRecord::Base
+
+      ENV['RAILS_NAMESPACE']
 
       db_config = YAML::load_file('config/database.yml')
       namespace = t.scope.to_a.last
