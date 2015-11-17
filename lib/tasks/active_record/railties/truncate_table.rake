@@ -9,10 +9,8 @@ namespace :db do
 
       active_record = ActiveRecord::Base
 
-      ENV['RAILS_NAMESPACE']
-
       db_config = YAML::load_file('config/database.yml')
-      namespace = t.scope.to_a.last
+      namespace = ENV['RAILS_NAMESPACE']
 
       env = Rails.env
 
@@ -22,7 +20,7 @@ namespace :db do
       connection = active_record.connection
 
       begin
-        connection.truncate! params[:table_name], restart_keys: params[:restart_keys], cascade: params[:cascade]
+        connection.truncate params[:table_name], restart_keys: params[:restart_keys], cascade: params[:cascade]
       rescue => e
         p e
       else

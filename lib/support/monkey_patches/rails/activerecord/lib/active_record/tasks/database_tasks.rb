@@ -12,10 +12,10 @@ module ActiveRecord
         db_configs = ActiveRecord::Base.configurations
         configurations = []
 
-        if ENV['RAILS_NAMESPACE']
-          namespaces = [ENV['RAILS_NAMESPACE']]
+        if ENV['NAMESPACE']
+          namespaces = [ENV['NAMESPACE']]
         else
-          namespaces = ENV['RAILS_NAMESPACES'] ? ENV['RAILS_NAMESPACES'].split(",") : []
+          namespaces = ENV['NAMESPACES'] ? ENV['NAMESPACES'].split(",") : []
         end
 
         namespaces_configs = db_configs.values_at(*namespaces)
@@ -46,6 +46,18 @@ module ActiveRecord
         else
           $stderr.puts "Database #{configuration['database']} has been created"
         end
+      end
+
+      def migrate
+        verbose = ENV["VERBOSE"] ? ENV["VERBOSE"] == "true" : true
+        version = ENV["VERSION"] ? ENV["VERSION"].to_i : nil
+        scope   = ENV['SCOPE']
+        verbose_was, Migration.verbose = Migration.verbose, verbose
+        Migrator.migrate(migrations_paths, version) do |migration|
+          scope.blank? || scope == migration.scope
+        end
+      ensure
+        Migration.verbose = verbose_was
       end
 
     end
