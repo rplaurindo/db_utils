@@ -1,20 +1,22 @@
 namespace :db do
 
-  Rake::Task["db:create"].clear
   Rake::Task["db:migrate"].clear
-
-  desc 'Bla Creates the database from DATABASE_URL or config/database.yml for the current RAILS_ENV (use db:create:all to create all databases in the config). Without RAILS_ENV it defaults to creating the development and test databases.'
-  # task :create => [:load_config] do
-  task :create => [:environment, :load_config] do
-    ActiveRecord::Tasks::DatabaseTasks.create_current
-  end
 
   desc "Bla Migrate the database (options: VERSION=x, VERBOSE=false, SCOPE=blog)."
   # ver qual é desse scope
   task :migrate => [:environment, :load_config] do
-    binding.pry
     ActiveRecord::Tasks::DatabaseTasks.migrate
     db_namespace['_dump'].invoke
+  end
+
+  Rake::Task["db:create"].clear
+
+  desc 'Bla Creates the database from DATABASE_URL or config/database.yml for the current RAILS_ENV (use db:create:all to create all databases in the config). Without RAILS_ENV it defaults to creating the development and test databases.'
+  # task :create => [:load_config] do
+  # task :create => [:environment, :load_config] do
+  task :create => [:environment, :load_config] do |t, args|
+    p args[:load_config]
+    ActiveRecord::Tasks::DatabaseTasks.create_current
   end
 
   # task :_dump do
