@@ -1,10 +1,8 @@
-# require 'active_support/core_ext/string/filter'
-
 module ActiveRecord
   module Tasks
     module DatabaseTasks
 
-      def each_current_configuration(environment)
+       def each_current_configuration(environment)
         environments = [environment]
         # add test environment only if no RAILS_ENV was specified.
         environments << 'test' if environment == 'development' && ENV['RAILS_ENV'].nil?
@@ -48,11 +46,19 @@ module ActiveRecord
         end
       end
 
+      def migrations_paths
+        binding.pry
+        # ver coé do Rails.application.paths
+        @migrations_paths ||= Rails.application.paths['db/migrate'].to_a
+      end
+
       def migrate
+        # binding.pry
         verbose = ENV["VERBOSE"] ? ENV["VERBOSE"] == "true" : true
         version = ENV["VERSION"] ? ENV["VERSION"].to_i : nil
         scope   = ENV['SCOPE']
         verbose_was, Migration.verbose = Migration.verbose, verbose
+        #método migrations_path deve ser modificado
         Migrator.migrate(migrations_paths, version) do |migration|
           scope.blank? || scope == migration.scope
         end
