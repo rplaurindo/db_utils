@@ -1,7 +1,5 @@
 require "byebug"
 
-# p Dir[File.join(ROOT_PATH, "lib/support", "**/*.rb")]
-
 ROOT_PATH = File.expand_path "../../", __FILE__
 
 module DBUtils
@@ -13,6 +11,7 @@ module DBUtils
   module ::Rails
     class Application
 
+      # carrega as tasks
       rake_tasks do
 
         Dir[File.join(ROOT_PATH, "lib/tasks", "**/*.rake")].each do |file|
