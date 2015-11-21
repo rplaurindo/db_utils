@@ -1,20 +1,15 @@
-require "byebug"
-
-ROOT_PATH = File.expand_path "../../", __FILE__
-
 module DBUtils
 
-  # include Rails
-  # extend Rails
+  LIB_PATH = File.expand_path "../../lib", __FILE__
 
   # os :: antes informa que não é para encapsular ao modulo DBUtils
   module ::Rails
     class Application
 
-      # carrega as tasks
+      # load as tasks
       rake_tasks do
 
-        Dir[File.join(ROOT_PATH, "lib/tasks", "**/*.rake")].each do |file|
+        Dir[File.join(LIB_PATH, "db_utils/tasks", "**/*.rake")].each do |file|
           load file
         end
 
@@ -26,8 +21,9 @@ module DBUtils
   class Railtie < ::Rails::Railtie
 
     config.after_initialize do
+      # require "byebug"
 
-      Dir[File.join(ROOT_PATH, "lib/support", "**/*.rb")].each do |file|
+      Dir[File.join(LIB_PATH, "db_utils", "**/*.rb")].each do |file|
         require file
       end
 

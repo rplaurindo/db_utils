@@ -1,3 +1,5 @@
+require "rdoc/task"
+
 class RDoc::Generator::Darkfish
 
   def generate_page file

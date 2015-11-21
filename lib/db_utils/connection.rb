@@ -1,9 +1,10 @@
 module DBUtils
-  module Connections
+  module Connection
 
     class << self
 
       def connect namespace = nil
+        namespace = namespace.to_s
         db_config = YAML::load_file('config/database.yml')
         if namespace
           ActiveRecord::Base.establish_connection db_config[namespace][Rails.env]
