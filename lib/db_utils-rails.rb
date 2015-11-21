@@ -9,7 +9,7 @@ module DBUtils
       # load as tasks
       rake_tasks do
 
-        Dir[File.join(LIB_PATH, "db_utils/tasks", "**/*.rake")].each do |file|
+        Dir[File.join(LIB_PATH, "tasks", "**/*.rake")].each do |file|
           load file
         end
 
