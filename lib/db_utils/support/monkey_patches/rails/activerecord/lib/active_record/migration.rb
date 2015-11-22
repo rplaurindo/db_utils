@@ -4,21 +4,6 @@ module ActiveRecord
 
     class << self
 
-      def up(migrations_paths, target_version = nil)
-        migrations = migrations(migrations_paths)
-        migrations.select! { |m| yield m } if block_given?
-
-        new(:up, migrations, target_version).migrate
-      end
-
-      def down(migrations_paths, target_version = nil, &block)
-        binding.pry
-        migrations = migrations(migrations_paths)
-        migrations.select! { |m| yield m } if block_given?
-
-        new(:down, migrations, target_version).migrate
-      end
-
       def migrations(paths)
         paths = Array(paths)
 
