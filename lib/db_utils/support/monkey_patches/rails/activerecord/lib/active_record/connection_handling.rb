@@ -6,11 +6,9 @@ module ActiveRecord
 
       binding.pry
 
-      # essa linha está errada
       spec     ||= DEFAULT_ENV.call.to_sym
       resolver =   ConnectionAdapters::ConnectionSpecification::Resolver.new configurations
 
-      binding.pry
       spec     =   resolver.spec(spec)
 
       unless respond_to?(spec.adapter_method)
