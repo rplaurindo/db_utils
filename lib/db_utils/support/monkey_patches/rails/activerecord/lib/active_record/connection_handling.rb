@@ -2,10 +2,7 @@ module ActiveRecord
   module ConnectionHandling
 
     def establish_connection(spec = nil)
-      # aqui já se pode definir o caso de namespace estar nil, verificar se há ENV["NAMESPACE"], devendo a variável spec ser melhor tratada
-
-      binding.pry
-
+      # binding.pry
       spec     ||= DEFAULT_ENV.call.to_sym
       resolver =   ConnectionAdapters::ConnectionSpecification::Resolver.new configurations
 
