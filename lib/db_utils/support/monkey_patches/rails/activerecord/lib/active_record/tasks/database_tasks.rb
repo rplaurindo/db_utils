@@ -9,6 +9,9 @@ module ActiveRecord
         verbose_was, Migration.verbose = Migration.verbose, verbose
 
         migrations_paths.each do |migration_path|
+          binding.pry
+          # aqui a coneção deverá ser estabelecida uma única vez por migration_path SE, e somente se a pasta base for diferente de migrate
+          # Base.establish_connection if ...
           Migrator.migrate(migration_path, version) do |migration|
             scope.blank? || scope == migration.scope
           end
