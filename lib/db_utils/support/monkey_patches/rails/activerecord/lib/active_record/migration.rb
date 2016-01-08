@@ -10,10 +10,10 @@ module ActiveRecord
       @migrated_versions = nil
       @migrations        = migrations
 
+      # binding.pry
       validate(@migrations)
 
       # aqui, parece-me, que já há uma conexão
-      binding.pry
       Base.connection.initialize_schema_migrations_table
     end
 
@@ -23,7 +23,7 @@ module ActiveRecord
       def up(migrations_paths, target_version = nil)
         migrations = migrations(migrations_paths)
         # Rails.application.config.database_configuration
-        binding.pry
+        # binding.pry
         migrations.select! do |m|
           yield m
         end if block_given?

@@ -2,11 +2,10 @@ namespace :db do
 
   Rake::Task["db:migrate"].clear
 
-  desc "Bla Migrate the database (options: VERSION=x, VERBOSE=false, SCOPE=blog)."
-  # ver qual é desse scope
+  # desc "Bla Migrate the database (options: VERSION=x, VERBOSE=false, SCOPE=blog)."
   task :migrate => [:environment, :load_config] do
     ActiveRecord::Tasks::DatabaseTasks.migrate
-    db_namespace['_dump'].invoke
+    # db_namespace['_dump'].invoke
   end
 
   Rake::Task["db:create"].clear
@@ -15,7 +14,6 @@ namespace :db do
   # task :create => [:load_config] do
   # task :create => [:environment, :load_config] do
   task :create => [:environment, :load_config] do |t, args|
-    p args[:load_config]
     ActiveRecord::Tasks::DatabaseTasks.create_current
   end
 

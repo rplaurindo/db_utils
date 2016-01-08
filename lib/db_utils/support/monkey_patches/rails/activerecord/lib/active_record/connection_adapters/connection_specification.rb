@@ -10,7 +10,6 @@ module ActiveRecord
 
         def resolve_hash_connection(spec)
           if spec["url"] && spec["url"] !~ /^jdbc:/
-            binding.pry
             connection_hash = resolve_url_connection(spec.delete("url"))
             spec.merge!(connection_hash)
           end
