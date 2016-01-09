@@ -45,19 +45,19 @@ module ActiveRecord
       end
 
       # commited
-      # def create(*arguments)
-      #   configuration = arguments.first
-      #   begin
-      #     class_for_adapter(configuration['adapter']).new(*arguments).create
-      #   rescue DatabaseAlreadyExists
-      #     $stderr.puts "#{configuration['database']} already exists"
-      #   rescue Exception => error
-      #     $stderr.puts error, *(error.backtrace)
-      #     $stderr.puts "Couldn't create database for #{configuration.inspect}"
-      #   else
-      #     $stderr.puts "Database #{configuration['database']} has been created"
-      #   end
-      # end
+      def create(*arguments)
+        configuration = arguments.first
+        begin
+          class_for_adapter(configuration['adapter']).new(*arguments).create
+        rescue DatabaseAlreadyExists
+          $stderr.puts "#{configuration['database']} already exists"
+        rescue Exception => error
+          $stderr.puts error, *(error.backtrace)
+          $stderr.puts "Couldn't create database for #{configuration.inspect}"
+        else
+          $stderr.puts "Database #{configuration['database']} has been created"
+        end
+      end
 
       private
 
