@@ -2,34 +2,7 @@ module ActiveRecord
 
   class Migrator#:nodoc:
 
-    def initialize(direction, migrations, target_version = nil)
-      raise StandardError.new("This database does not yet support migrations") unless Base.connection.supports_migrations?
-
-      @direction         = direction
-      @target_version    = target_version
-      @migrated_versions = nil
-      @migrations        = migrations
-
-      # binding.pry
-      validate(@migrations)
-
-      # aqui, parece-me, que já há uma conexão
-      Base.connection.initialize_schema_migrations_table
-    end
-
     class << self
-
-
-      def up(migrations_paths, target_version = nil)
-        migrations = migrations(migrations_paths)
-        # Rails.application.config.database_configuration
-        # binding.pry
-        migrations.select! do |m|
-          yield m
-        end if block_given?
-
-        new(:up, migrations, target_version).migrate
-      end
 
       def migrations(paths)
         paths = Array(paths)
@@ -50,7 +23,6 @@ module ActiveRecord
         migrations.sort_by(&:version)
       end
 
-      # def migrate(migrations_paths, target_version = nil, &block)
       def migrate(migrations_path, target_version = nil, &block)
         case
         when target_version.nil?
