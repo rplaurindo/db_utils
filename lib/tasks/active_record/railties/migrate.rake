@@ -5,7 +5,6 @@ namespace :sentinel do
 
     desc "Run migrations or creates database and run migrations."
 
-    # transformar em uma gem
     task :migrate, [:namespaces] => [:environment] do |t, params|
 
       extend Sentinel::Engine.helpers
