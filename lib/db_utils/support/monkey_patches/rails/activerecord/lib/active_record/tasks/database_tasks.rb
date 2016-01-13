@@ -28,12 +28,7 @@ module ActiveRecord
         paths = Rails.application.paths['db/migrate'].to_a
         root_path = paths.first
 
-        if ENV['RAILS_NAMESPACE']
-          namespaces = [ENV['RAILS_NAMESPACE']]
-        elsif
-          namespaces = ENV['RAILS_NAMESPACES'] ? ENV['RAILS_NAMESPACES']
-            .split(",") : []
-        end
+        namespaces = [ENV['RAILS_NAMESPACE'] || ENV['FROM']] || ENV['RAILS_NAMESPACES'].split(",")
 
         if namespaces.any?
           namespaces.each do |namespace|
