@@ -1,6 +1,5 @@
 module ActiveRecord
-
-  class Migrator#:nodoc:
+  class Migrator
 
     class << self
 
@@ -23,19 +22,7 @@ module ActiveRecord
         migrations.sort_by(&:version)
       end
 
-      def migrate(migrations_path, target_version = nil, &block)
-        case
-        when target_version.nil?
-          up(migrations_path, target_version, &block)
-        when current_version == 0 && target_version == 0
-          []
-        when current_version > target_version
-          down(migrations_path, target_version, &block)
-        else
-          up(migrations_path, target_version, &block)
-        end
-      end
-
     end
+
   end
 end

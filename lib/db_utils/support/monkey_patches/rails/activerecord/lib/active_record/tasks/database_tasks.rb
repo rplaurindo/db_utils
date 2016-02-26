@@ -12,7 +12,6 @@ module ActiveRecord
           namespace = File.basename migration_path
           db_configs = Base.configurations
           Base.establish_connection db_configs[namespace][Rails.env] unless namespace === "migrate"
-
           begin
             Migrator.migrate(migration_path, version) do |migration|
               scope.blank? || scope == migration.scope
@@ -20,7 +19,6 @@ module ActiveRecord
           ensure
             Migration.verbose = verbose_was
           end
-
         end
       end
 
@@ -28,12 +26,10 @@ module ActiveRecord
         paths = Rails.application.paths['db/migrate'].to_a
         root_path = paths.first
 
-        namespaces = [ENV['RAILS_NAMESPACE'] || ENV['RAILS_NAMESPACES'].split(",")].flatten
-        if namespaces.any?
-          namespaces.each do |namespace|
-            paths << "#{root_path}/#{namespace}"
-          end
-        end
+        namespaces = [ENV['MIGRATIONS_NAMESPACE'] || ENV['MIGRATIONS_NAMESPACES'].split(",")].flatten
+        namespaces.each do |namespace|
+          paths << "#{root_path}/#{namespace}"
+        end if namespaces.any?
 
         @migrations_paths ||= paths
       end
@@ -63,7 +59,7 @@ module ActiveRecord
         db_configs = Base.configurations
         configurations = []
 
-        namespaces = [ENV['RAILS_NAMESPACE'] || ENV['RAILS_NAMESPACES'].split(",")].flatten
+        namespaces = [ENV['MIGRATIONS_NAMESPACE'] || ENV['MIGRATIONS_NAMESPACES'].split(",")].flatten
         namespaces_configs = db_configs.values_at(*namespaces)
         if namespaces_configs.any?
           namespaces_configs.each do |namespace|
