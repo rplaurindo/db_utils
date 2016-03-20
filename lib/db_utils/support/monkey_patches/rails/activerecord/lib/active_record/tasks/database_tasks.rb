@@ -26,52 +26,67 @@ module ActiveRecord
         paths = Rails.application.paths['db/migrate'].to_a
         root_path = paths.first
 
-        namespaces = [ENV['MIGRATIONS_NAMESPACE'] || ENV['MIGRATIONS_NAMESPACES'].split(",")].flatten
+        namespaces = ENV['MIGRATIONS_NAMESPACE'] ||
+        ENV['MIGRATIONS_NAMESPACES'] ?
+          (ENV['MIGRATIONS_NAMESPACE'] ||
+          ENV['MIGRATIONS_NAMESPACES']).split(",").flatten :
+        []
+
         namespaces.each do |namespace|
           paths << "#{root_path}/#{namespace}"
-        end if namespaces.any?
+        end
 
         @migrations_paths ||= paths
       end
 
-      # commited
-      def create(*arguments)
-        configuration = arguments.first
-        begin
-          class_for_adapter(configuration['adapter']).new(*arguments).create
-        rescue DatabaseAlreadyExists
-          $stderr.puts "#{configuration['database']} already exists"
-        rescue Exception => error
-          $stderr.puts error, *(error.backtrace)
-          $stderr.puts "Couldn't create database for #{configuration.inspect}"
-        else
-          $stderr.puts "Database #{configuration['database']} has been created"
-        end
-      end
+      # ver como fazer monkey patch para não precisar apontar o gemfile para o local e fazer checkout para v4.2.6
+      # don't works here
+      # by: por com sentido de através
 
-      private
+      # def create(*arguments)
+      #   configuration = arguments.first
+      #   begin
+      #     class_for_adapter(configuration['adapter']).new(*arguments).create
+      #   rescue DatabaseAlreadyExists
+      #     $stderr.puts "#{configuration['database']} already exists"
+      #   rescue Exception => error
+      #     $stderr.puts error, *(error.backtrace)
+      #     $stderr.puts "Couldn't create database for #{configuration.inspect}"
+      #   else
+      #     $stderr.puts "Database #{configuration['database']} has been created"
+      #   end
+      # end
 
-      def each_current_configuration(environment)
-        environments = [environment]
-        # add test environment only if no RAILS_ENV was specified.
-        environments << 'test' if environment == 'development' &&
-          ENV['RAILS_ENV'].nil?
-        db_configs = Base.configurations
-        configurations = []
+      # private
 
-        namespaces = [ENV['MIGRATIONS_NAMESPACE'] || ENV['MIGRATIONS_NAMESPACES'].split(",")].flatten
-        namespaces_configs = db_configs.values_at(*namespaces)
-        if namespaces_configs.any?
-          namespaces_configs.each do |namespace|
-            configurations << namespace.values_at(*environments)
-          end
-        end
+      # def each_current_configuration(environment)
+      #   environments = [environment]
+      #   # add test environment only if no RAILS_ENV was specified.
+      #   environments << 'test' if environment == 'development' &&
+      #     ENV['RAILS_ENV'].nil?
 
-        configurations << db_configs.values_at(*environments)
-        configurations.flatten.compact.each do |configuration|
-          yield configuration unless configuration['database'].blank?
-        end
-      end
+      #   configurations = []
+
+      #   db_configs = Base.configurations
+      #   namespaces = ENV['MIGRATIONS_NAMESPACE'] ||
+      #   ENV['MIGRATIONS_NAMESPACES'] ?
+      #     (ENV['MIGRATIONS_NAMESPACE'] ||
+      #     ENV['MIGRATIONS_NAMESPACES']).split(",").flatten :
+      #   []
+
+      #   binding.pry
+      #   namespaces_configs = db_configs.values_at(*namespaces)
+      #   if namespaces_configs.any?
+      #     namespaces_configs.each do |namespace|
+      #       configurations << namespace.values_at(*environments)
+      #     end
+      #   end
+
+      #   configurations << db_configs.values_at(*environments)
+      #   configurations.flatten.compact.each do |configuration|
+      #     yield configuration unless configuration['database'].blank?
+      #   end
+      # end
 
     end
 
