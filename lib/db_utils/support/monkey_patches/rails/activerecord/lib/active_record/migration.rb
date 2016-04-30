@@ -1,9 +1,12 @@
+require 'active_record/migration'
+
 module ActiveRecord
   class Migrator
 
     class << self
 
       def migrations(paths)
+        binding.pry
         paths = Array(paths)
 
         files = Dir[*paths.map { |p| "#{p}/[0-9]*_*.rb" }]

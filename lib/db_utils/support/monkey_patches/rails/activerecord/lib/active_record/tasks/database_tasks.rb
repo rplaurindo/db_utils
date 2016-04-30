@@ -1,3 +1,5 @@
+require 'active_record/tasks/database_tasks'
+
 module ActiveRecord
   module Tasks
     module DatabaseTasks
@@ -7,6 +9,7 @@ module ActiveRecord
         version = ENV["VERSION"] ? ENV["VERSION"].to_i : nil
         scope   = ENV['SCOPE']
 
+        binding.pry
         migrations_paths.each do |migration_path|
           verbose_was, Migration.verbose = Migration.verbose, verbose
           namespace = File.basename migration_path
@@ -32,6 +35,7 @@ module ActiveRecord
           ENV['MIGRATIONS_NAMESPACES']).split(",").flatten :
         []
 
+        binding.pry
         namespaces.each do |namespace|
           paths << "#{root_path}/#{namespace}"
         end
@@ -39,54 +43,50 @@ module ActiveRecord
         @migrations_paths ||= paths
       end
 
-      # ver como fazer monkey patch para não precisar apontar o gemfile para o local e fazer checkout para v4.2.6
-      # don't works here
-      # by: por com sentido de através
+      def create(*arguments)
+        binding.pry
+        configuration = arguments.first
+        begin
+          class_for_adapter(configuration['adapter']).new(*arguments).create
+        rescue DatabaseAlreadyExists
+          $stderr.puts "#{configuration['database']} already exists"
+        rescue Exception => error
+          $stderr.puts error, *(error.backtrace)
+          $stderr.puts "Couldn't create database for #{configuration.inspect}"
+        else
+          $stderr.puts "Database #{configuration['database']} has been created"
+        end
+      end
 
-      # def create(*arguments)
-      #   configuration = arguments.first
-      #   begin
-      #     class_for_adapter(configuration['adapter']).new(*arguments).create
-      #   rescue DatabaseAlreadyExists
-      #     $stderr.puts "#{configuration['database']} already exists"
-      #   rescue Exception => error
-      #     $stderr.puts error, *(error.backtrace)
-      #     $stderr.puts "Couldn't create database for #{configuration.inspect}"
-      #   else
-      #     $stderr.puts "Database #{configuration['database']} has been created"
-      #   end
-      # end
+      private
 
-      # private
+      def each_current_configuration(environment)
+        environments = [environment]
+        # add test environment only if no RAILS_ENV was specified.
+        environments << 'test' if environment == 'development' &&
+          ENV['RAILS_ENV'].nil?
 
-      # def each_current_configuration(environment)
-      #   environments = [environment]
-      #   # add test environment only if no RAILS_ENV was specified.
-      #   environments << 'test' if environment == 'development' &&
-      #     ENV['RAILS_ENV'].nil?
+        configurations = []
 
-      #   configurations = []
+        db_configs = Base.configurations
+        namespaces = ENV['MIGRATIONS_NAMESPACE'] ||
+        ENV['MIGRATIONS_NAMESPACES'] ?
+          (ENV['MIGRATIONS_NAMESPACE'] ||
+          ENV['MIGRATIONS_NAMESPACES']).split(",").flatten :
+        []
 
-      #   db_configs = Base.configurations
-      #   namespaces = ENV['MIGRATIONS_NAMESPACE'] ||
-      #   ENV['MIGRATIONS_NAMESPACES'] ?
-      #     (ENV['MIGRATIONS_NAMESPACE'] ||
-      #     ENV['MIGRATIONS_NAMESPACES']).split(",").flatten :
-      #   []
+        namespaces_configs = db_configs.values_at(*namespaces)
+        if namespaces_configs.any?
+          namespaces_configs.each do |namespace|
+            configurations << namespace.values_at(*environments)
+          end
+        end
 
-      #   binding.pry
-      #   namespaces_configs = db_configs.values_at(*namespaces)
-      #   if namespaces_configs.any?
-      #     namespaces_configs.each do |namespace|
-      #       configurations << namespace.values_at(*environments)
-      #     end
-      #   end
-
-      #   configurations << db_configs.values_at(*environments)
-      #   configurations.flatten.compact.each do |configuration|
-      #     yield configuration unless configuration['database'].blank?
-      #   end
-      # end
+        configurations << db_configs.values_at(*environments)
+        configurations.flatten.compact.each do |configuration|
+          yield configuration unless configuration['database'].blank?
+        end
+      end
 
     end
 
