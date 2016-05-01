@@ -26,7 +26,6 @@ namespace :railties do
         puts "Copied migration #{migration.basename} from #{name}"
       end
 
-      binding.pry
       ActiveRecord::Migration.copy("#{ActiveRecord::Migrator.migrations_paths.first}/#{namespace}", railties,
                                     :on_skip => on_skip, :on_copy => on_copy)
     end
