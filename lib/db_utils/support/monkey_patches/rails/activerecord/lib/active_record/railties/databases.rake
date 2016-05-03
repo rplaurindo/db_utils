@@ -1,5 +1,3 @@
-load 'active_record/railties/databases.rake'
-
 Rake::Task["railties:install:migrations"].clear
 
 namespace :railties do

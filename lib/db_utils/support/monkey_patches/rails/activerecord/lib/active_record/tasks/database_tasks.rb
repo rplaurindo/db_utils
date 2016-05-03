@@ -1,3 +1,5 @@
+require 'pry'
+
 require 'active_record/tasks/database_tasks'
 
 module ActiveRecord
@@ -9,7 +11,6 @@ module ActiveRecord
         version = ENV["VERSION"] ? ENV["VERSION"].to_i : nil
         scope   = ENV['SCOPE']
 
-        binding.pry
         migrations_paths.each do |migration_path|
           verbose_was, Migration.verbose = Migration.verbose, verbose
           namespace = File.basename migration_path
@@ -35,7 +36,6 @@ module ActiveRecord
           ENV['MIGRATIONS_NAMESPACES']).split(",").flatten :
         []
 
-        binding.pry
         namespaces.each do |namespace|
           paths << "#{root_path}/#{namespace}"
         end
@@ -44,7 +44,6 @@ module ActiveRecord
       end
 
       def create(*arguments)
-        binding.pry
         configuration = arguments.first
         begin
           class_for_adapter(configuration['adapter']).new(*arguments).create
@@ -89,6 +88,5 @@ module ActiveRecord
       end
 
     end
-
   end
 end

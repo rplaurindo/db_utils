@@ -6,7 +6,6 @@ module ActiveRecord
     class << self
 
       def migrations(paths)
-        binding.pry
         paths = Array(paths)
 
         files = Dir[*paths.map { |p| "#{p}/[0-9]*_*.rb" }]
@@ -26,6 +25,9 @@ module ActiveRecord
 
     end
 
+  end
+
+  class Migration
     def copy(destination, sources, options = {})
       copied = []
 
@@ -57,7 +59,6 @@ module ActiveRecord
           end
 
           migration.version = next_migration_number(last ? last.version + 1 : 0).to_i
-          binding.pry
           new_path = File.join(destination, "#{migration.version}_#{migration.name.underscore}.rb")
           old_path, migration.filename = migration.filename, new_path
           last = migration
@@ -73,4 +74,5 @@ module ActiveRecord
     end
 
   end
+
 end
