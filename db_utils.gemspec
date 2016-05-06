@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email            = ["rafaelplaurindo@gmail.com"]
   spec.homepage         = "https://rubygems.org/gems/db_utils"
   spec.summary          = %q{Summary of DBUtils}
-  spec.description      = %q{Adds support to namespace in "rake tasks" of Ruby on Rails}
+  spec.description      = %q{Provides support to namespace in "rake tasks" of Ruby on Rails}
   spec.license          = "MIT"
 
   spec.files = Dir["{lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]

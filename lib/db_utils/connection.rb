@@ -3,6 +3,7 @@ module DBUtils
 
     class << self
 
+      # to recognize who include (module and class) to connect automatically
       def connect namespace = nil
         namespace = namespace.to_s
         db_config = YAML::load_file('config/database.yml')
