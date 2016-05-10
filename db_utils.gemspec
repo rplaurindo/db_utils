@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
 
   spec.test_files = Dir["test/**/*"]
 
-  spec.files = Dir["{bin,lib}/**/*", "LICENSE.txt", "Rakefile", "README.md"]
+  spec.files = Dir["{bin,lib}/**/*", "CODE_OF_CONDUCT.md", "LICENSE.txt", "README.md", "Rakefile"]
   spec.require_paths = %w{bin lib vendor}
 
 end
