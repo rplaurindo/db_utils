@@ -1,8 +1,6 @@
 # DBUtils
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/db_utils`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+This gem provides support to ActiveRecord gem of Ruby on Rails working with namespaces.
 
 ## Installation
 
@@ -22,7 +20,60 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+In your ```config/database.yml``` add a namespace to configurations. Like that.
+
+```yaml
+some_namespace:
+  test:
+    database: some_namespace_test
+    adapter:
+    username:
+    host: localhost
+
+  development:
+    database: some_namespace_development
+    adapter:
+    username:
+    host: localhost
+
+  staging:
+    database: some_namespace_staging
+    adapter:
+    username:
+    host:
+
+  production:
+    database: some_namespace_production
+    adapter:
+    username:
+    host:
+```
+
+Includes ```DBUtils::Connector``` in your model that are encapsulated in a module to automatically connect to database.
+
+**Obs.**: The modules should have same name that the namespace defined in ```database.yml```
+
+### Generating database
+
+Run
+```shell
+$ rake db:create db:migrate MIGRATIONS_NAMESPACE=defined_namespace
+```
+
+or
+
+```shell
+$ rake db:create db:migrate MIGRATIONS_NAMESPACES=defined_namespace1,defined_namespace2
+```
+
+### When installation engine migrations
+
+After Run
+
+```shell
+$ rake <some engine>:install:migrations
+```
+The migrations will go to a folder with same name of migration. That folder can be renamed, but the namespace defined in ```database.yml``` should have the same name of the folder.
 
 ## Development
 
@@ -32,8 +83,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/db_utils. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
-
+Bug reports and pull requests are welcome on GitHub at https://github.com/rplaurindo/db_utils.
 
 ## License
 

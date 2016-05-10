@@ -5,18 +5,18 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'db_utils/version'
 
 Gem::Specification.new do |spec|
-  spec.name             = "db_utils"
-  spec.version          = DBUtils::VERSION
-  spec.authors          = ["Rafael Laurindo"]
-  spec.email            = ["rafaelplaurindo@gmail.com"]
-  spec.homepage         = "https://rubygems.org/gems/db_utils"
-  spec.summary          = %q{Summary of DBUtils}
-  spec.description      = %q{Provides support to namespace in "rake tasks" of Ruby on Rails}
-  spec.license          = "MIT"
+  spec.name           = "db_utils"
+  spec.version        = DBUtils::VERSION
+  spec.authors        = ["Rafael Laurindo"]
+  spec.email          = ["rafaelplaurindo@gmail.com"]
+  spec.homepage       = "https://rubygems.org/gems/db_utils"
+  spec.summary        = %q{Summary of DBUtils}
+  spec.description    = %q{This gem provides support to ActiveRecord gem of Ruby on Rails working with namespaces}
+  spec.license        = "MIT"
 
-  spec.test_files = Dir["test/**/*"]
+  spec.test_files     = Dir["test/**/*"]
 
-  spec.files = Dir["{bin,lib}/**/*", "CODE_OF_CONDUCT.md", "LICENSE.txt", "README.md", "Rakefile"]
-  spec.require_paths = %w{bin lib vendor}
+  spec.files          = Dir["{bin,lib}/**/*", "CODE_OF_CONDUCT.md", "LICENSE.txt", "README.md", "Rakefile"]
+  spec.require_paths  = %w{bin lib vendor}
 
 end
