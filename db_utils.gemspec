@@ -5,7 +5,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'db_utils/version'
 
 Gem::Specification.new do |spec|
-  spec.name           = "db_utils"
+  spec.name           = "db_utils-rails"
   spec.version        = DBUtils::VERSION
   spec.authors        = ["Rafael Laurindo"]
   spec.email          = ["rafaelplaurindo@gmail.com"]
@@ -16,7 +16,6 @@ Gem::Specification.new do |spec|
 
   spec.test_files     = Dir["test/**/*"]
 
-  spec.files          = Dir["{bin,lib}/**/*", "CODE_OF_CONDUCT.md", "LICENSE.txt", "README.md", "Rakefile"]
+  spec.files          = Dir["{bin,lib}/**/*", "CODE_OF_CONDUCT.md", "MIT-LICENSE", "README.md", "Rakefile"]
   spec.require_paths  = %w{bin lib vendor}
-
 end
