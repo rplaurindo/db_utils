@@ -1,6 +1,7 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+
 require 'db_utils/version'
 
 Gem::Specification.new do |spec|
@@ -13,10 +14,9 @@ Gem::Specification.new do |spec|
   spec.description      = %q{Provides support to namespace in "rake tasks" of Ruby on Rails}
   spec.license          = "MIT"
 
-  spec.files = Dir["{lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
   spec.test_files = Dir["test/**/*"]
-  spec.require_paths = ["lib"]
 
-  spec.add_dependency "rails", "~> 4.2"
+  spec.files = Dir["{bin,lib}/**/*", "LICENSE.txt", "Rakefile", "README.md"]
+  spec.require_paths = %w{bin lib vendor}
 
 end
