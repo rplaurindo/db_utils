@@ -15,6 +15,14 @@ module DBUtils
         end
       end
 
+      private
+
+      # called only one times
+      def included who_add
+        connect who_add.name.deconstantize.downcase
+        who_add.table_name = "users"
+      end
+
     end
 
   end
