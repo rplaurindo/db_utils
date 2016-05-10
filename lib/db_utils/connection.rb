@@ -17,7 +17,7 @@ module DBUtils
 
       private
 
-      # called only one times
+      # called only once by module or class that include it
       def included who_add
         connect who_add.name.deconstantize.downcase
         who_add.table_name = "users"
