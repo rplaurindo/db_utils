@@ -1,5 +1,5 @@
 LIB_PATH = File.expand_path "../../lib", __FILE__
-MONKEY_PATCHES_PATH = "#{LIB_PATH}/db_utils/support/monkey_patches"
+EXTENSIONS_PATH = "#{LIB_PATH}/db_utils/extensions"
 
 module DBUtils
 
@@ -13,7 +13,7 @@ module DBUtils
           load file
         end
 
-        Dir[File.join(MONKEY_PATCHES_PATH, "**/*.rake")].each do |file|
+        Dir[File.join(EXTENSIONS_PATH, "**/*.rake")].each do |file|
           load file
         end
       end
@@ -27,7 +27,7 @@ module DBUtils
 
   class Railtie < ::Rails::Railtie
 
-    Dir[File.join(MONKEY_PATCHES_PATH, "rails", "**/*.rb")].each do |file|
+    Dir[File.join(EXTENSIONS_PATH, "rails", "**/*.rb")].each do |file|
       require file
     end
 
