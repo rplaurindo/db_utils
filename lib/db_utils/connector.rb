@@ -9,9 +9,9 @@ module DBUtils
         db_config = YAML::load_file('config/database.yml')
         if namespace
           ActiveRecord::Base
-            .establish_connection db_config[namespace][Rails.env]
+            .establish_connection db_config[namespace][::Rails.env]
         else
-          ActiveRecord::Base.establish_connection db_config[Rails.env]
+          ActiveRecord::Base.establish_connection db_config[::Rails.env]
         end
       end
 

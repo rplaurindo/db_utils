@@ -1,3 +1,5 @@
 module DBUtils
-  VERSION = "0.0.2"
+  module Rails
+    VERSION = "0.3.1"
+  end
 end
