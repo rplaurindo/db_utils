@@ -7,7 +7,7 @@ This gem provides support to ActiveRecord gem of Ruby on Rails working with name
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'db_utils'
+gem 'db_utils-rails'
 ```
 
 And then execute:
@@ -16,54 +16,36 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install db_utils
+    $ gem install db_utils-rails
 
 ## Usage
 
 In your ```config/database.yml``` add a namespace to configurations. Like that.
 
 ```yaml
-some_namespace:
-  test:
-    database: some_namespace_test
-    adapter:
-    username:
-    host: localhost
-
-  development:
-    database: some_namespace_development
-    adapter:
-    username:
-    host: localhost
-
-  staging:
-    database: some_namespace_staging
-    adapter:
-    username:
-    host:
-
-  production:
-    database: some_namespace_production
-    adapter:
-    username:
-    host:
+<namespace>:
+  <environment>:
+    database: ...
+    adapter: ...
+    username: ...
+    host: ...
 ```
 
 Includes ```DBUtils::Connector``` in your model that are encapsulated in a module to automatically connect to database.
 
-**Obs.**: The modules should have same name that the namespace defined in ```database.yml```
+**Obs.**: The modules must have same name that the namespace defined in ```database.yml```
 
 ### Generating database
 
 Run
 ```shell
-$ rake db:create db:migrate MIGRATIONS_NAMESPACE=defined_namespace
+$ rake db:create db:migrate MIGRATIONS_NAMESPACE=<namespace>
 ```
 
 or
 
 ```shell
-$ rake db:create db:migrate MIGRATIONS_NAMESPACES=defined_namespace1,defined_namespace2
+$ rake db:create db:migrate MIGRATIONS_NAMESPACES=<namespace1,namespace2>
 ```
 
 ### When installation engine migrations
@@ -71,9 +53,9 @@ $ rake db:create db:migrate MIGRATIONS_NAMESPACES=defined_namespace1,defined_nam
 After Run
 
 ```shell
-$ rake <some engine>:install:migrations
+$ rake <your engine>:install:migrations
 ```
-The migrations will go to a folder with same name of migration. That folder can be renamed, but the namespace defined in ```database.yml``` should have the same name of the folder.
+The migrations will go to a folder with same name of migration. That folder can be renamed, but the namespace defined in ```database.yml``` must have the same name of the folder.
 
 ## Development
 
@@ -83,7 +65,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/rplaurindo/db_utils.
+Bug reports and pull requests are welcome on GitHub at https://github.com/rplaurindo/db_utils-rails.
 
 ## License
 

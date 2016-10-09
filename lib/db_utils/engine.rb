@@ -18,10 +18,11 @@ module DBUtils
 
     class Engine < ::Rails::Engine
       extend DBUtils
+      include DBUtils
 
       isolate_namespace DBUtils
 
-
+      # config.before_initialize do
       config.after_initialize do
         Dir[File.join(lib_path, "**/*.rb")].each do |file|
           require file
