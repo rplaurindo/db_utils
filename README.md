@@ -39,13 +39,13 @@ Includes ```DBUtils::Connector``` in your model that are encapsulated in a modul
 
 Run
 ```shell
-$ rake db:create db:migrate MIGRATIONS_NAMESPACE=<namespace>
+$ rake db:create db:migrate MIGRATION_NAMESPACE=<namespace>
 ```
 
 or
 
 ```shell
-$ rake db:create db:migrate MIGRATIONS_NAMESPACES=<namespace1,namespace2>
+$ rake db:create db:migrate MIGRATION_NAMESPACES=<namespace1,namespace2>
 ```
 
 ### When installation engine migrations

@@ -28,10 +28,10 @@ module ActiveRecord
         paths = Rails.application.paths['db/migrate'].to_a
         root_path = paths.first
 
-        namespaces = ENV['MIGRATIONS_NAMESPACE'] ||
-        ENV['MIGRATIONS_NAMESPACES'] ?
-          (ENV['MIGRATIONS_NAMESPACE'] ||
-          ENV['MIGRATIONS_NAMESPACES']).split(",").flatten :
+        namespaces = ENV['MIGRATION_NAMESPACE'] ||
+        ENV['MIGRATION_NAMESPACES'] ?
+          (ENV['MIGRATION_NAMESPACE'] ||
+          ENV['MIGRATION_NAMESPACES']).split(",").flatten :
         []
 
         namespaces.each do |namespace|
@@ -66,10 +66,10 @@ module ActiveRecord
         configurations = []
 
         db_configs = Base.configurations
-        namespaces = ENV['MIGRATIONS_NAMESPACE'] ||
-        ENV['MIGRATIONS_NAMESPACES'] ?
-          (ENV['MIGRATIONS_NAMESPACE'] ||
-          ENV['MIGRATIONS_NAMESPACES']).split(",").flatten :
+        namespaces = ENV['MIGRATION_NAMESPACE'] ||
+        ENV['MIGRATION_NAMESPACES'] ?
+          (ENV['MIGRATION_NAMESPACE'] ||
+          ENV['MIGRATION_NAMESPACES']).split(",").flatten :
         []
 
         namespaces_configs = db_configs.values_at(*namespaces)
