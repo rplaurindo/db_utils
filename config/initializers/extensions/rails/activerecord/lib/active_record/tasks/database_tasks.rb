@@ -35,7 +35,7 @@ module ActiveRecord
         []
 
         namespaces.each do |namespace|
-          paths << "#{root_path}/#{namespace}"
+          paths << "#{root_path}/#{namespace.strip}"
         end
 
         @migrations_paths ||= paths
