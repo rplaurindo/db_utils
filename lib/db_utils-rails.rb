@@ -1,1 +1,1 @@
-require "db_utils/engine"
+require "db_utils/rails/engine"

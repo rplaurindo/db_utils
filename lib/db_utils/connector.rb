@@ -1,4 +1,5 @@
 module DBUtils
+
   module Connector
 
     class << self
@@ -36,4 +37,5 @@ module DBUtils
     end
 
   end
+
 end
