@@ -18,4 +18,6 @@ Gem::Specification.new do |spec|
 
   spec.files          = Dir["{bin,config,lib,vendor}/**/*", "CODE_OF_CONDUCT.md", "MIT-LICENSE", "README.md", "Rakefile"]
   spec.require_paths  = %w{bin config lib vendor}
+
+  spec.add_dependency 'rails', '~> 4'
 end
