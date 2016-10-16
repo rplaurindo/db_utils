@@ -9,7 +9,8 @@ module DBUtils
           namespace = namespace.to_s
           db_config = YAML::load_file('config/database.yml')
           # tentar fazer include aos modelos do projeto dinamicamente por aqui, para tal deve-se pegar todos os modelos, incluir um observador neles, e toda vez que forem chamados esse módulo deve ser incluído, ou o método deve ser chamado.
-          # Um outra solução é incluir este mṕdulo a todos os modelos, sem a intervenção do usuário, neste caso um observador não seria necessário
+          # Um outra solução é incluir este mṕdulo a todos os modelos, sem a intervenção do usuário, neste caso um observador não seria necessário.
+          # ou, talvez tenha que usar os dois, incluir em todas, e quando chamadas executar o método connect
           # binding.pry
           if namespace
             # try
