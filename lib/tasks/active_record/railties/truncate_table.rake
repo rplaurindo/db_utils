@@ -10,21 +10,22 @@ namespace :db do
       active_record = ActiveRecord::Base
 
       db_config = YAML::load_file('config/database.yml')
-      namespace = ENV['RAILS_NAMESPACE']
+      namespace = ENV['NAMESPACE']
 
       env = Rails.env
 
-      conn_conf = (namespace ? db_config[namespace][env] : db_config[env]).clone
+      connection_config = (namespace ? db_config[namespace][env] : db_config[env]).clone
       database = db_config[namespace][env]["database"]
-      active_record.establish_connection conn_conf
+      active_record.establish_connection connection_config
       connection = active_record.connection
 
+      table_name = params[:table_name].strip
       begin
-        connection.truncate params[:table_name], restart_keys: params[:restart_keys], cascade: params[:cascade]
+        connection.truncate table_name, restart_keys: params[:restart_keys], cascade: params[:cascade]
       rescue => e
-        p e
+        $stderr.puts e
       else
-        p "Tabela #{params[:table_name]} truncada com sucesso."
+        $stderr.puts "Table \"#{table_name}\" has been truncated."
       end
 
     end
