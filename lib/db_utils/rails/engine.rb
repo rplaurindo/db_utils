@@ -31,6 +31,13 @@ module DBUtils
         Dir[File.join(lib_path, "**/*.rb")].each do |file|
           require file
         end
+
+      end
+
+      config.to_prepare do
+        ActiveSupport.on_load :active_model do
+          include DBUtils::Rails::Connector
+        end
       end
 
       rake_tasks do

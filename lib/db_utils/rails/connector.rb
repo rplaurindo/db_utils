@@ -35,7 +35,7 @@ module DBUtils
           #   ActiveRecord::Base.establish_connection db_config[::Rails.env]
           # end
 
-          # reload_model!
+          reload_model!
         end
 
         private
@@ -44,7 +44,7 @@ module DBUtils
           def included who_included
             @who_included = who_included
             @module = has_module?
-            if @module && @module.name.underscore != "active_record"
+            if !@module || @module.name.underscore != "active_record"
               connect
             end
           end
@@ -55,7 +55,8 @@ module DBUtils
           end
 
           def reload_model!
-            Object.send :remove_const, @who_included.name.to_sym
+            object = @module ? Module.const_get(@module.name.to_sym) : Class
+            object.send :remove_const, @who_included.name.demodulize.to_sym
             require_model_file
           end
 
@@ -68,8 +69,9 @@ module DBUtils
           def require_model_files
             name = @who_included.name.underscore
             module_name = @module.name.underscore
-            # binding.pry
+            binding.pry
             if module_name
+              # File.exists?
               # ::Rails.application.config.paths["app/models"].select do |path|
               #   # binding.pry
               #   # verificar se arquivo existe, sei lá como
