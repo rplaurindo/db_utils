@@ -3,29 +3,27 @@ module DBUtils
 
     extend self
 
-    def application
-      ::Rails.application
-    end
-
     def models
-      application.config.eager_load_paths = models_eager_load_path
+      application.config.eager_load_paths = model_eager_load_paths
       application.eager_load!
 
-      models = Module.select_nestings do |const|
+      models = Module.collect do |const|
         const if const.is_a?(Class) && const != ActiveRecord::SchemaMigration && (const.extends?(ActiveRecord::Base) || const.include?(ActiveModel::Model))
       end
     end
 
     private
 
-      def models_eager_load_path
-        application.config.eager_load_paths.select do |abs_path|
-          match_path = nil
-          application.config.paths["app/models"].select do |path|
-            match_path = true if Regexp.new("(#{path})$").match abs_path
+      def application
+        ::Rails.application
+      end
+
+      def model_eager_load_paths
+        eager_load_paths = application.config.eager_load_paths.collect do |eager_load_path|
+          model_paths = application.config.paths["app/models"].collect do |model_path|
+            eager_load_path if Regexp.new("(#{model_path})$").match(eager_load_path)
           end
-          abs_path if match_path
-        end
+        end.flatten.compact
       end
 
   end
