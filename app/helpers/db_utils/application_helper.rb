@@ -10,13 +10,10 @@ module DBUtils
     def models
       application.config.eager_load_paths = models_eager_load_path
       application.eager_load!
-      models = []
 
-      Module.constants.each do |constant_name|
-        constant = eval constant_name.to_s
-        models.push constant if constant.is_a?(Class) && (constant.extend?(ActiveRecord::Base) || constant.include?(ActiveModel::Model))
+      models = Module.select_nestings do |const|
+        const if const.is_a?(Class) && const != ActiveRecord::SchemaMigration && (const.extends?(ActiveRecord::Base) || const.include?(ActiveModel::Model))
       end
-      models
     end
 
     private
