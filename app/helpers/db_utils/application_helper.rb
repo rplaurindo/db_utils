@@ -7,7 +7,7 @@ module DBUtils
       application.config.eager_load_paths = model_eager_load_paths
       application.eager_load!
 
-      models = Module.collect do |const|
+      models = Module.nestings do |const|
         const if const.is_a?(Class) && const != ActiveRecord::SchemaMigration && (const.extends?(ActiveRecord::Base) || const.include?(ActiveModel::Model))
       end
     end
