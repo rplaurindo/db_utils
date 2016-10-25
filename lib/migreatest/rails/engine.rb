@@ -1,6 +1,6 @@
-# require "pry"
+require "pry"
 
-module DBUtils
+module Migreatest
   module Rails
 
     extend self
@@ -36,7 +36,7 @@ module DBUtils
 
       config.to_prepare do
         ActiveSupport.on_load :active_model do
-          include DBUtils::Rails::Connector
+          include Migreatest::Rails::Connector
         end
       end
 

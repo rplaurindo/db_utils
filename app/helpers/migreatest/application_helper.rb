@@ -1,4 +1,4 @@
-module DBUtils
+module Migreatest
   module ApplicationHelper
 
     extend self

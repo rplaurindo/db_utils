@@ -1,0 +1,1 @@
+require "migreatest/rails/engine"
