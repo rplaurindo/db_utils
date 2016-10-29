@@ -1,3 +1,9 @@
+# verificar se o modelo possui módulo, caso sim, pegá-lo;
+# verificar recursivamente se seus módulos define ::Engine, caso sim, pegar seu diretório root ...::Engine.root
+# se não encontrar, então não é engine, devendo ser procurado com auxílio do Rails.application.root
+# fazer o remove_const com o const_get do módulo capturado
+# pegar config.paths["app/models"], unir com o root para fazer require. Seguir padrão de nome de namespace para resolver path relativo ao modelo para tentar fazer o require
+
 module Migreatest
   module Rails
     module Connector
@@ -35,7 +41,7 @@ module Migreatest
         #   ActiveRecord::Base.establish_connection db_config[::Rails.env]
         # end
 
-        # reload_model!
+        reload_model!
       end
 
       class << self
@@ -87,6 +93,7 @@ module Migreatest
             # end
           end
 
+          # talvez não seja mais necessário com o método Module.defines?, por causa da implementação de autoload do Rails
           def is_gem? name
             begin
               gem_specification = GEM::Specification.find_by_name(name)
@@ -97,6 +104,7 @@ module Migreatest
 
           def require_model_files
             constant_name = @full_constant.name.underscore
+
             gem_name = @full_parent.name.parametrize
             files = []
 

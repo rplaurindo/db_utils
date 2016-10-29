@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.email          = ["rafaelplaurindo@gmail.com"]
   spec.homepage       = "https://rubygems.org/gems/migreatest-rails"
   spec.summary        = %q{Summary of Migreatest}
-  spec.description    = %q{This gem provides support to ActiveRecord gem of Ruby on Rails working with namespaces}
+  spec.description    = %q{This gem provides support for ActiveRecord gem of Ruby on Rails to work with namespaces}
   spec.license        = "MIT"
 
   spec.test_files     = Dir["test/**/*"]
