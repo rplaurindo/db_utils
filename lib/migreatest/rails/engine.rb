@@ -35,7 +35,7 @@ module Migreatest
       end
 
       config.to_prepare do
-        ActiveSupport.on_load :active_model do
+        ActiveSupport.on_load :active_record do
           include Migreatest::Rails::Connector
         end
       end
@@ -59,5 +59,3 @@ module Migreatest
   end
 
 end
-
-# p File.expand_path "../../../../", __FILE__
