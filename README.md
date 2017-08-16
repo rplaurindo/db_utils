@@ -1,4 +1,4 @@
-# Migreatest
+# TableControlHelper
 
 This gem provides support to ActiveRecord gem of Ruby on Rails working with namespaces.
 
@@ -7,7 +7,7 @@ This gem provides support to ActiveRecord gem of Ruby on Rails working with name
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'migreatest-rails'
+gem 'table_mapping_helper-rails'
 ```
 
 And then execute:
@@ -16,7 +16,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install migreatest-rails
+    $ gem install table_mapping_helper-rails
 
 ## Usage
 
@@ -31,7 +31,7 @@ In your ```config/database.yml``` add a namespace to configurations. Like that.
     host: ...
 ```
 
-Includes ```Migreatest::Rails::Connector``` in your model that are encapsulated in a module to automatically connect to database.
+Includes ```TableControlHelper::Rails::Connector``` in your model that are encapsulated in a module to automatically connect to database.
 
 **Obs.**: The modules must have same name that the namespace defined in ```database.yml```
 
@@ -65,7 +65,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/rplaurindo/migreatest-rails.
+Bug reports and pull requests are welcome on GitHub at https://github.com/rplaurindo/table_mapping_helper-rails.
 
 ## License
 

@@ -1,6 +1,6 @@
 require "pry"
 
-module Migreatest
+module TableMappingHelper
   module Rails
 
     extend self
@@ -27,24 +27,20 @@ module Migreatest
       isolate_namespace Rails
 
       # with to_prepare will raise a error
+      # após fazer iterar sobre os paths dos modelos, fazer include neles, levando-se em consideração a convenção de nomes para montá-los. Mas acho que o Rails já faz isso
       config.before_initialize do
+
         Dir[File.join(lib_path, "**/*.rb")].each do |file|
           require file
         end
 
       end
 
-      config.to_prepare do
-        ActiveSupport.on_load :active_record do
-          include Migreatest::Rails::Connector
-        end
-      end
-
-      rake_tasks do
-        Dir[File.join(extensions_path, "**/*.rake")].each do |file|
-          load file
-        end
-      end
+      # rake_tasks do
+      #   Dir[File.join(extensions_path, "**/*.rake")].each do |file|
+      #     load file
+      #   end
+      # end
 
     end
 
@@ -53,9 +49,10 @@ module Migreatest
   class Railtie < ::Rails::Railtie
     extend Rails
 
-    Dir[File.join(extensions_path, "**/*.rb")].each do |file|
-      require file
-    end
+    # Dir[File.join(extensions_path, "**/*.rb")].each do |file|
+    #   require file
+    # end
+
   end
 
 end
